@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:traveling_salesman/providers/markers_providers.dart';
 import 'package:traveling_salesman/providers/polyline_state_provider.dart';
+import 'package:traveling_salesman/TSP/tsp.dart';
 
 class MyDearMap extends ConsumerStatefulWidget {
   const MyDearMap({super.key});
@@ -13,9 +14,18 @@ class MyDearMap extends ConsumerStatefulWidget {
 }
 
 class _MyDearMapState extends ConsumerState<MyDearMap> {
+  List<LatLng> polylinepoints = [];
   @override
   Widget build(BuildContext context) {
     List<Marker> marker = ref.watch(mapMarkersProvider);
+    bool polylinestate = ref.watch(polylinestateprovider);
+    void oncomputationrequest() {
+      var salesman = Tsp(markers: marker);
+      polylinepoints = salesman.travelthesalesman();
+      print(polylinepoints);
+      ref.read(polylinestateprovider.notifier).changeState(true);
+    }
+
     return Stack(
       children: [
         FlutterMap(
@@ -27,7 +37,10 @@ class _MyDearMapState extends ConsumerState<MyDearMap> {
               ref.read(mapMarkersProvider.notifier).addMarker(
                     Marker(
                       point: latLng,
-                      child: const Icon(Icons.pin_drop),
+                      child: Icon(Icons.pin_drop,
+                          color: marker.isEmpty
+                              ? const Color.fromARGB(255, 134, 12, 3)
+                              : Colors.black),
                     ),
                   );
             },
@@ -38,6 +51,16 @@ class _MyDearMapState extends ConsumerState<MyDearMap> {
               userAgentPackageName: 'com.example.app',
             ),
             MarkerLayer(markers: marker),
+            if (polylinestate)
+              PolylineLayer(
+                polylines: [
+                  Polyline(
+                    points: polylinepoints,
+                    strokeWidth: 5.0,
+                    color: const Color.fromARGB(255, 9, 115, 202),
+                  ),
+                ],
+              ),
           ],
         ),
         Positioned(
@@ -46,7 +69,9 @@ class _MyDearMapState extends ConsumerState<MyDearMap> {
           right: 16,
           height: 40,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              oncomputationrequest();
+            },
             style: const ButtonStyle(
               elevation: MaterialStatePropertyAll(3.0),
               backgroundColor: MaterialStatePropertyAll(Colors.black),

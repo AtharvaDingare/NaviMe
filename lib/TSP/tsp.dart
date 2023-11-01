@@ -27,7 +27,7 @@ class Tsp {
       parents[node][mask] = 0;
       return dp[node][mask] = graph[node][0];
     }
-    double mindistance = 1e9;
+    double mindistance = 1000000000;
     for (int i = 0; i < n; i++) {
       if ((mask & powers[i]) == powers[i]) {
         continue;
@@ -43,7 +43,7 @@ class Tsp {
       }
     }
 
-    return dp[node][mask];
+    return dp[node][mask] = mindistance;
   }
 
   List<LatLng> travelthesalesman() {
@@ -52,6 +52,7 @@ class Tsp {
         graph[i].add(finddistance(markers[i], markers[j]));
       }
     }
+    print(graph);
     List<int> powers = [];
     int temp = 1;
     for (int i = 0; i < 20; i++) {
@@ -63,9 +64,10 @@ class Tsp {
     List<List<int>> parents =
         List.generate(count, (index) => List.filled(powers[count], -1));
     double answer = recursetsp(graph, 1, 0, count, dp, parents, powers);
+    print(answer);
     List<int> path = [];
     List<LatLng> plotpath = [];
-    int snode = 0, smask = 0;
+    int snode = 0, smask = 1;
     while (true) {
       path.add(snode);
       plotpath.add(markers[snode].point);
