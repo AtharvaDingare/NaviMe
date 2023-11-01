@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:traveling_salesman/widgets/drawer.dart';
 import 'package:traveling_salesman/widgets/map.dart';
 
 class MapScreen extends ConsumerWidget {
@@ -7,6 +8,12 @@ class MapScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: const Text("Map Screen"),
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -21,6 +28,7 @@ class MapScreen extends ConsumerWidget {
         ),
         child: const MyDearMap(),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

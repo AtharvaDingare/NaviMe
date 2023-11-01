@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:traveling_salesman/screens/map_screen.dart';
+import 'package:traveling_salesman/widgets/drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    void NavigatetoMap() {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const MapScreen(),
-        ),
-      );
-    }
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: const Text("SOME DATA"),
+        backgroundColor: Colors.transparent,
+        actions: const [],
+      ),
+      drawer: const CustomDrawer(),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 109, 183, 243),
-              Color.fromARGB(255, 136, 189, 233),
-              Color.fromARGB(255, 151, 191, 224)
-            ],
-          ),
+          color: Colors.black87,
         ),
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: kToolbarHeight + 5,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset("assets/world_map.jpeg"),
+              padding: const EdgeInsets.all(0.0),
+              child: Image.asset(
+                "assets/world_map.jpeg",
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               height: 250,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                NavigatetoMap();
-              },
-              child: const Text("Navigate furtherr!!"),
             ),
           ],
         ),
