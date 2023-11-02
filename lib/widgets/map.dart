@@ -26,6 +26,7 @@ class _MyDearMapState extends ConsumerState<MyDearMap> {
       ref.read(polylinestateprovider.notifier).changeState(true);
     }
 
+    //bool isDarkMode = ref.watch(darkmodestateprovider);
     return Stack(
       children: [
         FlutterMap(

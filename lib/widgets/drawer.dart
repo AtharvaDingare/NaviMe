@@ -36,9 +36,9 @@ class CustomDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black,
               ),
-              accountName: Text('John Doe'), // Customize the user's name
-              accountEmail:
-                  Text('johndoe@example.com'), // Customize the user's email
+              accountName: Text('Atharva Dingare'), // Customize the user's name
+              accountEmail: Text(
+                  'dingareatharva@gmail.com'), // Customize the user's email
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.brown,
                 // Customize the profile image
@@ -65,7 +65,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.search,
                   color: Colors.white), // Customize the icon
-              title: const Text('Search',
+              title: const Text('Manage Events',
                   style: TextStyle(color: Colors.white)), // Customize the text
               onTap: () {
                 // Handle the Search option

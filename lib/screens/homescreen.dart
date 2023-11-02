@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:traveling_salesman/screens/map_screen.dart';
 import 'package:traveling_salesman/widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
